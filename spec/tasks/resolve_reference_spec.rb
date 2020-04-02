@@ -81,11 +81,6 @@ describe GCloudInventory do
       expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Missing required keys/)
     end
 
-    it 'raises an error when a credentials file has the wrong project id' do
-      opts[:project] = 'puppet'
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /does not match project/)
-    end
-
     it 'raises an error when a credentials file cannot be loaded' do
       opts[:credentials] = File.join(__dir__, 'fake_file')
       expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Unable to read/)

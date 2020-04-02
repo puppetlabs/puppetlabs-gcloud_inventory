@@ -14,7 +14,7 @@ class GCloudInventory < TaskHelper
   AUTH_SCOPE        = 'https://www.googleapis.com/auth/compute.readonly'.freeze
   AUTH_SKEW         = 60
   CREDENTIALS_ENV   = 'GOOGLE_APPLICATION_CREDENTIALS'.freeze
-  CREDENTIALS_KEYS  = %w[client_email private_key project_id token_uri].freeze
+  CREDENTIALS_KEYS  = %w[client_email private_key token_uri].freeze
   GRANT_TYPE        = 'urn:ietf:params:oauth:grant-type:jwt-bearer'.freeze
   SIGNING_ALGORITHM = 'RS256'.freeze
 
@@ -34,17 +34,10 @@ class GCloudInventory < TaskHelper
     # Build a list of compute engine instances, making multiple API requests if needed
     instances = get_all_instances(url, token)
 
-    # Pull the necessary target data from each instance
-    attributes = required_data(template)
-    target_data = instances.map do |instance|
-      attributes.each_with_object({}) do |attr, acc|
-        attr = attr.first
-        acc[attr] = instance.key?(attr) ? instance[attr] : nil
-      end
+    # Apply the target_mapping to the instance data
+    instances.map do |instance|
+      apply_mapping(template, instance)
     end
-
-    # Apply the target data to the template
-    target_data.map { |data| apply_mapping(template, data) }
   end
 
   # Hash of required credentials for authorizing with Google authentication server
@@ -71,13 +64,6 @@ class GCloudInventory < TaskHelper
     # Ensure the credentials have the required keys
     if (keys = CREDENTIALS_KEYS - credentials.keys).any?
       msg = "Missing required keys in credentials file: #{keys.join(', ')}"
-      raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
-    end
-
-    # Ensure the credentials are for the specified project
-    unless credentials['project_id'] == opts[:project]
-      msg = "Project '#{credentials['project_id']}' in credentials file does not match project "\
-            "'#{opts[:project]}' in plugin configuration"
       raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
     end
 
