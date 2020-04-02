@@ -1,10 +1,12 @@
 name: Spec
 
 on:
-  pull_request:
-    type: [opened, reopened, edited]
   push:
     branches: [master]
+    paths-ignore: ['**.md']
+  pull_request:
+    type: [opened, reopened, edited]
+    paths-ignore: ['**.md']
 
 jobs:
 
@@ -31,5 +33,9 @@ jobs:
       - name: Install gems
         if: steps.cache.outputs.cache-hit != 'true'
         run: bundle install --jobs 4 --retry 3
+      - name: Clone helpers
+        run: |
+          git clone https://github.com/puppetlabs/puppetlabs-ruby_task_helper ../ruby_task_helper
+          git clone https://github.com/puppetlabs/puppetlabs-ruby_plugin_helper ../ruby_plugin_helper
       - name: Run spec tests
         run: bundle exec rake spec
