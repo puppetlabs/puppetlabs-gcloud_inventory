@@ -8,7 +8,7 @@
 
 ## Description
 
-This module includes a Bolt plugin to generate Bolt targets from Google Cloud compute engine instances.
+This module includes a Bolt plugin to generate targets from Google Cloud compute engine instances.
 
 ## Requirements
 
