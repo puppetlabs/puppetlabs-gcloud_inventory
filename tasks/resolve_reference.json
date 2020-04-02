@@ -1,0 +1,21 @@
+{
+  "description": "Generate targets from Google Cloud compute engine instances",
+  "files": ["ruby_task_helper/files/task_helper.rb",
+            "ruby_plugin_helper/lib/plugin_helper.rb"
+  ],
+  "input_method": "stdin",
+  "parameters": {
+    "project": {
+      "type": "String[1]"
+    },
+    "zone": {
+      "type": "String[1]"
+    },
+    "credentials": {
+      "type": "Optional[String[1]]"
+    },
+    "target_mapping": {
+      "type": "Hash"
+    }
+  }
+}
