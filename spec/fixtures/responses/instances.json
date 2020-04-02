@@ -1,0 +1,186 @@
+[
+  {
+    "id": "1503685451392695350",
+    "creationTimestamp": "2020-03-30T16:38:02.007-07:00",
+    "name": "instance-1",
+    "description": "",
+    "tags": {
+      "fingerprint": "rCjcZ6mi5Xk="
+    },
+    "machineType": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/machineTypes/n1-standard-1",
+    "status": "RUNNING",
+    "zone": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b",
+    "canIpForward": false,
+    "networkInterfaces": [
+      {
+        "network": "https://www.googleapis.com/compute/v1/projects/bolt/global/networks/default",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/bolt/regions/us-west1/subnetworks/default",
+        "networkIP": "10.0.0.1",
+        "name": "nic0",
+        "accessConfigs": [
+          {
+            "type": "ONE_TO_ONE_NAT",
+            "name": "External NAT",
+            "natIP": "35.0.0.0",
+            "networkTier": "PREMIUM",
+            "kind": "compute#accessConfig"
+          }
+        ],
+        "fingerprint": "ZKcX2zq6MvM=",
+        "kind": "compute#networkInterface"
+      }
+    ],
+    "disks": [
+      {
+        "type": "PERSISTENT",
+        "mode": "READ_WRITE",
+        "source": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/disks/instance-1",
+        "deviceName": "instance-1",
+        "index": 0,
+        "boot": true,
+        "autoDelete": true,
+        "licenses": [
+          "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch"
+        ],
+        "interface": "SCSI",
+        "guestOsFeatures": [
+          {
+            "type": "VIRTIO_SCSI_MULTIQUEUE"
+          }
+        ],
+        "diskSizeGb": "10",
+        "kind": "compute#attachedDisk"
+      }
+    ],
+    "metadata": {
+      "fingerprint": "x7hAK7rx-1c=",
+      "kind": "compute#metadata"
+    },
+    "serviceAccounts": [
+      {
+        "email": "225902644535-compute@developer.gserviceaccount.com",
+        "scopes": [
+          "https://www.googleapis.com/auth/devstorage.read_only",
+          "https://www.googleapis.com/auth/logging.write",
+          "https://www.googleapis.com/auth/monitoring.write",
+          "https://www.googleapis.com/auth/servicecontrol",
+          "https://www.googleapis.com/auth/service.management.readonly",
+          "https://www.googleapis.com/auth/trace.append"
+        ]
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/instances/instance-1",
+    "scheduling": {
+      "onHostMaintenance": "MIGRATE",
+      "automaticRestart": true,
+      "preemptible": false
+    },
+    "cpuPlatform": "Intel Broadwell",
+    "labels": {
+      "foo": "bar"
+    },
+    "labelFingerprint": "1TQLkowq0ZY=",
+    "startRestricted": false,
+    "deletionProtection": false,
+    "reservationAffinity": {
+      "consumeReservationType": "ANY_RESERVATION"
+    },
+    "displayDevice": {
+      "enableDisplay": false
+    },
+    "fingerprint": "hIAEbm-CbwQ=",
+    "kind": "compute#instance"
+  },
+  {
+    "id": "4589319931139358415",
+    "creationTimestamp": "2020-03-31T15:11:45.020-07:00",
+    "name": "instance-2",
+    "description": "",
+    "tags": {
+      "fingerprint": "42WmSpB8rSM="
+    },
+    "machineType": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/machineTypes/n1-standard-1",
+    "status": "RUNNING",
+    "zone": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b",
+    "canIpForward": false,
+    "networkInterfaces": [
+      {
+        "network": "https://www.googleapis.com/compute/v1/projects/bolt/global/networks/default",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/bolt/regions/us-west1/subnetworks/default",
+        "networkIP": "10.0.0.0",
+        "name": "nic0",
+        "accessConfigs": [
+          {
+            "type": "ONE_TO_ONE_NAT",
+            "name": "External NAT",
+            "natIP": "34.0.0.0",
+            "networkTier": "PREMIUM",
+            "kind": "compute#accessConfig"
+          }
+        ],
+        "fingerprint": "nUmr7xL7o2U=",
+        "kind": "compute#networkInterface"
+      }
+    ],
+    "disks": [
+      {
+        "type": "PERSISTENT",
+        "mode": "READ_WRITE",
+        "source": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/disks/instance-2",
+        "deviceName": "instance-2",
+        "index": 0,
+        "boot": true,
+        "autoDelete": true,
+        "licenses": [
+          "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch"
+        ],
+        "interface": "SCSI",
+        "guestOsFeatures": [
+          {
+            "type": "VIRTIO_SCSI_MULTIQUEUE"
+          }
+        ],
+        "diskSizeGb": "10",
+        "kind": "compute#attachedDisk"
+      }
+    ],
+    "metadata": {
+      "fingerprint": "o10m5-j8u3M=",
+      "kind": "compute#metadata"
+    },
+    "serviceAccounts": [
+      {
+        "email": "225902644535-compute@developer.gserviceaccount.com",
+        "scopes": [
+          "https://www.googleapis.com/auth/devstorage.read_only",
+          "https://www.googleapis.com/auth/logging.write",
+          "https://www.googleapis.com/auth/monitoring.write",
+          "https://www.googleapis.com/auth/servicecontrol",
+          "https://www.googleapis.com/auth/service.management.readonly",
+          "https://www.googleapis.com/auth/trace.append"
+        ]
+      }
+    ],
+    "selfLink": "https://www.googleapis.com/compute/v1/projects/bolt/zones/us-west1-b/instances/instance-2",
+    "scheduling": {
+      "onHostMaintenance": "MIGRATE",
+      "automaticRestart": true,
+      "preemptible": false
+    },
+    "cpuPlatform": "Intel Broadwell",
+    "labels": {
+      "baz": "bak"
+    },
+    "labelFingerprint": "YGkCAs48uZ8=",
+    "startRestricted": false,
+    "deletionProtection": false,
+    "reservationAffinity": {
+      "consumeReservationType": "ANY_RESERVATION"
+    },
+    "displayDevice": {
+      "enableDisplay": false
+    },
+    "fingerprint": "0a0oxbwrS6w=",
+    "kind": "compute#instance"
+  }
+]

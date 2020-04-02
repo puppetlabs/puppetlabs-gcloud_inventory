@@ -1,0 +1,41 @@
+name: Spec
+
+on:
+  push:
+    branches: [master]
+    paths-ignore: ['**.md']
+  pull_request:
+    type: [opened, reopened, edited]
+    paths-ignore: ['**.md']
+
+jobs:
+
+  spec:
+    name: Spec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.5.x'
+      - name: Install bundler
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+      - name: Cache gems
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
+      - name: Install gems
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: bundle install --jobs 4 --retry 3
+      - name: Clone helpers
+        run: |
+          git clone https://github.com/puppetlabs/puppetlabs-ruby_task_helper ../ruby_task_helper
+          git clone https://github.com/puppetlabs/puppetlabs-ruby_plugin_helper ../ruby_plugin_helper
+      - name: Run spec tests
+        run: bundle exec rake spec
