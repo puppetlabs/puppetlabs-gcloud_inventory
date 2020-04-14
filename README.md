@@ -24,7 +24,7 @@ and zone. It supports the following fields:
 
 | Option | Type | Description |
 | ------ | ---- | ----------- |
-| `credentials` | `String` | An absolute path to the service account credentials file. _Optional._ |
+| `credentials` | `String` | A path to the service account credentials file. Accepts either an absolute path or a path relative to the Bolt project directory. _Optional._ |
 | `project` | `String` | The name of the project to lookup instances from. _Required_. |
 | `target_mapping` | `Hash` | A hash of target attributes to populate with resource values. Must include either `name` or `uri`. _Required_. |
 | `zone` | `String` | The name of the zone to lookup instances from. _Required_. |

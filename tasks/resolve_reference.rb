@@ -51,7 +51,7 @@ class GCloudInventory < TaskHelper
       raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
     end
 
-    path        = File.expand_path(opts[:credentials] || ENV[CREDENTIALS_ENV])
+    path        = File.expand_path(opts[:credentials] || ENV[CREDENTIALS_ENV], opts[:_boltdir])
     credentials = JSON.parse(File.read(path))
 
     # Ensure the credentials are a hash
