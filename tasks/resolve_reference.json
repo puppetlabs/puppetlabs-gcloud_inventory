@@ -1,7 +1,8 @@
 {
   "description": "Generate targets from Google Cloud compute engine instances",
-  "files": ["ruby_task_helper/files/task_helper.rb",
-            "ruby_plugin_helper/lib/plugin_helper.rb"
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "ruby_plugin_helper/lib/plugin_helper.rb"
   ],
   "input_method": "stdin",
   "parameters": {
