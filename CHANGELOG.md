@@ -1,5 +1,15 @@
 # Changelog
 
+## Release 0.1.2
+
+### Bug fixes
+
+* **Add missing dependencies to module metadata**
+  ([#6](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/6))
+
+  The module metadata now includes `ruby_plugin_helper` and `ruby_task_helper`
+  as dependencies.
+
 ## Release 0.1.1
 
 ### Bug fixes
