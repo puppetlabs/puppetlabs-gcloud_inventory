@@ -1,5 +1,13 @@
 # Changelog
 
+## Release 0.1.3
+
+### Bug fixes
+
+* **Add PDK as a gem dependency**
+
+  PDK is now a gem dependency for the module release pipeline
+
 ## Release 0.1.2
 
 ### Bug fixes
