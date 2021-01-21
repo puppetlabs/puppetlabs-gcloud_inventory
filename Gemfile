@@ -3,9 +3,10 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 def location_for(place_or_version, fake_version = nil)
-  if place_or_version =~ /\A(git[:@][^#]*)#(.*)/
+  case place_or_version
+  when /\A(git[:@][^#]*)#(.*)/
     [fake_version, { git: Regexp.last_match(1), branch: Regexp.last_match(2), require: false }].compact
-  elsif place_or_version =~ %r{\Afile:\/\/(.*)}
+  when %r{\Afile://(.*)}
     ['>= 0', { path: File.expand_path(Regexp.last_match(1)), require: false }]
   else
     [place_or_version, { require: false }]
