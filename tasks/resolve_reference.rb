@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../ruby_task_helper/files/task_helper.rb'
-require_relative '../../ruby_plugin_helper/lib/plugin_helper.rb'
+require_relative '../../ruby_task_helper/files/task_helper'
+require_relative '../../ruby_plugin_helper/lib/plugin_helper'
 require 'net/http'
 require 'openssl'
 require 'json'

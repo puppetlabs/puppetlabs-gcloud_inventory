@@ -1,5 +1,11 @@
 # Changelog
 
+## Release 0.2.0
+
+### New features
+
+* **Bump maximum Puppet version to include 7.x** ([#10](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/10))
+
 ## Release 0.1.3
 
 ### Bug fixes
