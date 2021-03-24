@@ -15,6 +15,16 @@
     "credentials": {
       "type": "Optional[String[1]]"
     },
+    "client_email": {
+      "type": "Optional[String[1]]"
+    },
+    "token_uri": {
+      "type": "Optional[String[1]]"
+    },
+    "private_key": {
+      "type": "Optional[String[1]]",
+      "sensitive": true
+    },
     "target_mapping": {
       "type": "Hash"
     }

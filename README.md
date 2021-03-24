@@ -25,6 +25,9 @@ and zone. It supports the following fields:
 | Option | Type | Description |
 | ------ | ---- | ----------- |
 | `credentials` | `String` | A path to the service account credentials file. Accepts either an absolute path or a path relative to the Bolt project directory. _Optional._ |
+| `client_email` | `String` | The Google Cloud client email to use. _Optional_. |
+| `token_uri` | `String` | The Google Cloud token uri to use. _Optional_. |
+| `private_key` | `String` | The Google Cloud private key to use. _Optional_. |
 | `project` | `String` | The name of the project to lookup instances from. _Required_. |
 | `target_mapping` | `Hash` | A hash of target attributes to populate with resource values. Must include either `name` or `uri`. _Required_. |
 | `zone` | `String` | The name of the zone to lookup instances from. _Required_. |
@@ -33,9 +36,10 @@ and zone. It supports the following fields:
 
 The plugin supports loading a credentials file from a path specified in either the `credentials` option
 or the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. A path specified in the `credentials`
-option will take precedence over a path specified in the `GOOGLE_APPLICATION_CREDENTIALS` environment
-variable. If a credentials file is not specified, or the path does not point to a valid credentials
-file, the plugin will error.
+ption or credentials specified in the `client_email`, `token_uri` and `private_key` fields will take
+precedence over a path specified in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. If a
+credentials file is not specified, or the path does not point to a valid credentials file, the plugin
+will error.
 
 The credentials file must contain a JSON object with at least the following fields:
 

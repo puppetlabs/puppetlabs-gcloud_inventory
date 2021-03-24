@@ -95,6 +95,14 @@ describe GCloudInventory do
       allow(File).to receive(:read).and_return('"data"')
       expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Expected credentials to be a Hash/)
     end
+
+    it 'correctly builds the credentials hash when creds are passed in' do
+      opts.delete(:credentials)
+      provided_creds = { client_email: 'testemail',
+                         token_uri: 'tokenuri',
+                         private_key: 'privatekey' }
+      expect(subject.credentials(opts.merge(provided_creds))).to eq(provided_creds.transform_keys(&:to_s))
+    end
   end
 
   describe '#get_all_instances' do
