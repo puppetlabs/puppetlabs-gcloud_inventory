@@ -1,5 +1,15 @@
 # Changelog
 
+## Release 0.3.0
+
+### New features
+
+* **Provide credentials as parameters**
+  ([#11](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/11))
+
+  The `resolve_reference` task has new `client_email`, `token_uri`, and `private_key`
+  parameters for authenticating with Google Cloud.
+
 ## Release 0.2.0
 
 ### New features
