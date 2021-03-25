@@ -44,26 +44,36 @@ class GCloudInventory < TaskHelper
   # or from an evironment variable
   def credentials(opts)
     # Ensure a credentials file was specified
-    unless opts[:credentials] || ENV[CREDENTIALS_ENV]
+    manual_creds_provided = opts[:client_email] && opts[:token_uri] && opts[:private_key]
+    unless opts[:credentials] || manual_creds_provided || ENV[CREDENTIALS_ENV]
       msg = "Missing application credentials. Specify the path to the application credentials file "\
             "under the 'credentials' configuration option or as the 'GOOGLE_APPLICATION_CREDENTIALS' "\
-            "environment variable."
+            "environment variable. Credentials can also be specified using the 'client_email', "\
+            "'token_uri' and 'private_key' configuration options."
       raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
     end
 
-    path        = File.expand_path(opts[:credentials] || ENV[CREDENTIALS_ENV], opts[:_boltdir])
-    credentials = JSON.parse(File.read(path))
+    if opts[:credentials] || ENV[CREDENTIALS_ENV]
+      # Read credential hash from credential file
+      path        = File.expand_path(opts[:credentials] || ENV[CREDENTIALS_ENV], opts[:_boltdir])
+      credentials = JSON.parse(File.read(path))
 
-    # Ensure the credentials are a hash
-    unless credentials.is_a? Hash
-      msg = "Expected credentials to be a Hash, received #{credentials.class}"
-      raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
-    end
+      # Ensure the credentials are a hash
+      unless credentials.is_a? Hash
+        msg = "Expected credentials to be a Hash, received #{credentials.class}"
+        raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
+      end
 
-    # Ensure the credentials have the required keys
-    if (keys = CREDENTIALS_KEYS - credentials.keys).any?
-      msg = "Missing required keys in credentials file: #{keys.join(', ')}"
-      raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
+      # Ensure the credentials have the required keys
+      if (keys = CREDENTIALS_KEYS - credentials.keys).any?
+        msg = "Missing required keys in credentials file: #{keys.join(', ')}"
+        raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
+      end
+    else
+      # Build credential hash from provided credential information
+      credentials = { 'client_email' => opts[:client_email],
+                      'token_uri'    => opts[:token_uri],
+                      'private_key'  => opts[:private_key] }
     end
 
     credentials
