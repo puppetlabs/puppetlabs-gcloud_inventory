@@ -2,10 +2,10 @@ name: Tests
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths-ignore: ['*.md']
   pull_request:
-    type: [opened, reopened, edited]
+    types: [opened, reopened, edited]
     paths-ignore: ['*.md']
 
 jobs:
@@ -15,24 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.5.x'
-      - name: Install bundler
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-      - name: Cache gems
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
-      - name: Install gems
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: bundle install --jobs 4 --retry 3
+          ruby-version: '3.1'
+          bundler-cache: true
       - name: Clone helpers
         run: |
           git clone https://github.com/puppetlabs/puppetlabs-ruby_task_helper ../ruby_task_helper
@@ -45,11 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.5.x'
+          ruby-version: '3.1'
       - name: Install rubocop
         run: gem install rubocop
       - name: Run rubocop
