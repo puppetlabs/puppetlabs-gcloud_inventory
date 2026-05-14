@@ -1,5 +1,11 @@
 # Changelog
 
+## Release 0.3.1
+
+### New features
+
+* **Bump ruby_task_helper upper bound to < 2.0.0** ([#14](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/14))
+
 ## Release 0.3.0
 
 ### New features
