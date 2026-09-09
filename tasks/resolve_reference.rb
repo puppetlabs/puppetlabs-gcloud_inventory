@@ -14,7 +14,7 @@ class GCloudInventory < TaskHelper
   AUTH_SCOPE        = 'https://www.googleapis.com/auth/compute.readonly'
   AUTH_SKEW         = 60
   CREDENTIALS_ENV   = 'GOOGLE_APPLICATION_CREDENTIALS'
-  CREDENTIALS_KEYS  = %w[client_email private_key token_uri].freeze
+  CREDENTIALS_KEYS  = ['client_email', 'private_key', 'token_uri'].freeze
   GRANT_TYPE        = 'urn:ietf:params:oauth:grant-type:jwt-bearer'
   SIGNING_ALGORITHM = 'RS256'
 
@@ -46,9 +46,9 @@ class GCloudInventory < TaskHelper
     # Ensure a credentials file was specified
     manual_creds_provided = opts[:client_email] && opts[:token_uri] && opts[:private_key]
     unless opts[:credentials] || manual_creds_provided || ENV[CREDENTIALS_ENV]
-      msg = "Missing application credentials. Specify the path to the application credentials file "\
-            "under the 'credentials' configuration option or as the 'GOOGLE_APPLICATION_CREDENTIALS' "\
-            "environment variable. Credentials can also be specified using the 'client_email', "\
+      msg = 'Missing application credentials. Specify the path to the application credentials file ' \
+            "under the 'credentials' configuration option or as the 'GOOGLE_APPLICATION_CREDENTIALS' " \
+            "environment variable. Credentials can also be specified using the 'client_email', " \
             "'token_uri' and 'private_key' configuration options."
       raise TaskHelper::Error.new(msg, 'bolt.plugin/validation-error')
     end
@@ -72,8 +72,8 @@ class GCloudInventory < TaskHelper
     else
       # Build credential hash from provided credential information
       credentials = { 'client_email' => opts[:client_email],
-                      'token_uri'    => opts[:token_uri],
-                      'private_key'  => opts[:private_key] }
+                      'token_uri' => opts[:token_uri],
+                      'private_key' => opts[:private_key] }
     end
 
     credentials
@@ -89,7 +89,7 @@ class GCloudInventory < TaskHelper
   def token(creds)
     data = {
       'grant_type' => GRANT_TYPE,
-      'assertion'  => jwt(creds)
+      'assertion' => jwt(creds),
     }
 
     uri = URI.parse(creds['token_uri'])
@@ -102,11 +102,11 @@ class GCloudInventory < TaskHelper
     time = Time.new
 
     assertion = {
-      'iss'   => creds['client_email'],       # client's email address, typically a service account
-      'scope' => AUTH_SCOPE,                  # request read only access to the compute engine API
-      'aud'   => creds['token_uri'],          # endpoint to request the access token
-      'exp'   => (time + AUTH_SKEW).to_i,     # token expires after 1 hour
-      'iat'   => (time - AUTH_SKEW).to_i      # the time this assertion was created
+      'iss' => creds['client_email'], # client's email address, typically a service account
+      'scope' => AUTH_SCOPE, # request read only access to the compute engine API
+      'aud' => creds['token_uri'],          # endpoint to request the access token
+      'exp' => (time + AUTH_SKEW).to_i,     # token expires after 1 hour
+      'iat' => (time - AUTH_SKEW).to_i, # the time this assertion was created
     }
 
     signing_key = OpenSSL::PKey::RSA.new(creds['private_key'])
@@ -119,7 +119,7 @@ class GCloudInventory < TaskHelper
   # Builds a list of instances, making multiple API requests as needed
   def get_all_instances(url, token)
     header = {
-      'Authorization' => "#{token['token_type']} #{token['access_token']}"
+      'Authorization' => "#{token['token_type']} #{token['access_token']}",
     }
 
     instances = []
@@ -162,7 +162,7 @@ class GCloudInventory < TaskHelper
     rescue StandardError => e
       raise TaskHelper::Error.new(
         "Failed to connect to #{uri}: #{e.message}",
-        'bolt.plugin/gcloud-http-error'
+        'bolt.plugin/gcloud-http-error',
       )
     end
 
@@ -174,7 +174,7 @@ class GCloudInventory < TaskHelper
     else
       result = JSON.parse(response.body)
       err    = result['error']['message']
-      msg    = String.new("#{response.code} \"#{response.msg}\"")
+      msg    = "#{response.code} \"#{response.msg}\""
       msg   += ": #{err}" if err
       raise TaskHelper::Error.new(msg, 'bolt.plugin/gcloud-http-error')
     end
@@ -190,6 +190,4 @@ class GCloudInventory < TaskHelper
   end
 end
 
-if $PROGRAM_NAME == __FILE__
-  GCloudInventory.run
-end
+GCloudInventory.run if $PROGRAM_NAME == __FILE__

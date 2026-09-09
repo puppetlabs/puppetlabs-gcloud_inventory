@@ -5,7 +5,7 @@ require_relative '../../tasks/resolve_reference'
 
 describe GCloudInventory do
   def with_env(key, val)
-    old_val = ENV[key]
+    old_val = ENV.fetch(key, nil)
     ENV[key] = val
     yield
   ensure
@@ -30,8 +30,8 @@ describe GCloudInventory do
       credentials: credentials,
       target_mapping: {
         name: 'name',
-        uri:  'networkInterfaces.0.accessConfigs.0.natIP'
-      }
+        uri: 'networkInterfaces.0.accessConfigs.0.natIP',
+      },
     }
   end
 
@@ -50,7 +50,7 @@ describe GCloudInventory do
 
       targets = [
         { name: 'instance-1', uri: '35.0.0.0' },
-        { name: 'instance-2', uri: '34.0.0.0' }
+        { name: 'instance-2', uri: '34.0.0.0' },
       ]
 
       expect(subject.resolve_reference(opts)).to match_array(targets)
@@ -73,27 +73,27 @@ describe GCloudInventory do
 
     it 'raises an error when a credentials file is missing' do
       opts.delete(:credentials)
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Missing application credentials/)
+      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, %r{Missing application credentials})
     end
 
     it 'raises an error when a credentials file is missing required keys' do
       allow(File).to receive(:read).and_return('{}')
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Missing required keys/)
+      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, %r{Missing required keys})
     end
 
     it 'raises an error when a credentials file cannot be loaded' do
       opts[:credentials] = File.join(__dir__, 'fake_file')
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Unable to read/)
+      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, %r{Unable to read})
     end
 
     it 'raises an error when a credentials file cannot be parsed as JSON' do
       allow(File).to receive(:read).and_return('not json')
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Unable to parse/)
+      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, %r{Unable to parse})
     end
 
     it 'raises an error when a credentials file is not a hash' do
       allow(File).to receive(:read).and_return('"data"')
-      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, /Expected credentials to be a Hash/)
+      expect { subject.credentials(opts) }.to raise_error(TaskHelper::Error, %r{Expected credentials to be a Hash})
     end
 
     it 'correctly builds the credentials hash when creds are passed in' do
@@ -111,26 +111,26 @@ describe GCloudInventory do
     it 'paginates' do
       [1, 2, 3].each do |i|
         uri = URI.parse("https://example.com/page?pageToken=#{i}")
-        response = { 'items'         => %W[#{i}a #{i}b #{i}c],
+        response = { 'items' => ["#{i}a", "#{i}b", "#{i}c"],
                      'nextPageToken' => i + 1,
-                     'selfLink'      => 'https://example.com/page' }
+                     'selfLink' => 'https://example.com/page' }
         allow(subject).to receive(:request).with(:Get, uri, nil, anything).and_return(response)
       end
 
       uri = URI.parse('https://example.com/page?pageToken=4')
-      response = { 'items' => %w[4a 4b 4c] }
+      response = { 'items' => ['4a', '4b', '4c'] }
       allow(subject).to receive(:request).with(:Get, uri, nil, anything).and_return(response)
 
       results = subject.get_all_instances('https://example.com/page?pageToken=1', token)
-      expect(results).to eq(%w[1a 1b 1c 2a 2b 2c 3a 3b 3c 4a 4b 4c])
+      expect(results).to eq(['1a', '1b', '1c', '2a', '2b', '2c', '3a', '3b', '3c', '4a', '4b', '4c'])
     end
   end
 
-  describe "#task" do
+  describe '#task' do
     it 'returns the list of targets' do
       targets = [
         { uri: '1.2.3.4', name: 'my-instance' },
-        { uri: '1.2.3.5', name: 'my-other-instance' }
+        { uri: '1.2.3.5', name: 'my-other-instance' },
       ]
 
       allow(subject).to receive(:resolve_reference).and_return(targets)
@@ -146,7 +146,7 @@ describe GCloudInventory do
       result = subject.task({})
 
       expect(result).to have_key(:_error)
-      expect(result[:_error]['msg']).to match(/something went wrong/)
+      expect(result[:_error]['msg']).to match(%r{something went wrong})
     end
   end
 end
