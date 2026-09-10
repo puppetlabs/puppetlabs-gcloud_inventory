@@ -1,53 +1,51 @@
+<!-- markdownlint-disable MD024 -->
 # Changelog
 
-## Release 0.3.1
+All notable changes to this project will be documented in this file.
 
-### New features
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-* **Bump ruby_task_helper upper bound to < 2.0.0** ([#14](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/14))
+## [v1.0.0](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/tree/v1.0.0) - 2026-09-10
 
-## Release 0.3.0
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/compare/0.3.1...v1.0.0)
 
-### New features
+### Changed
 
-* **Provide credentials as parameters**
-  ([#11](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/11))
+- (BOLT-193): gcloud_inventory pdk update to puppet 9 [#16](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/16) ([gavindidrichsen](https://github.com/gavindidrichsen))
 
-  The `resolve_reference` task has new `client_email`, `token_uri`, and `private_key`
-  parameters for authenticating with Google Cloud.
+### Other
 
-## Release 0.2.0
+- CHANGELOG update [#17](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/17) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (BOLT-136) Prepare for release. [#15](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/15) ([gavindidrichsen](https://github.com/gavindidrichsen))
 
-### New features
+## [0.3.1](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/tree/0.3.1) - 2026-05-14
 
-* **Bump maximum Puppet version to include 7.x** ([#10](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/10))
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/compare/0.3.0...0.3.1)
 
-## Release 0.1.3
+### Other
 
-### Bug fixes
+- (BOLT-136) Prepare for release. [#15](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/15) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (BOLT-136) Bump ruby_task_helper upper bound to < 2.0.0 [#14](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/14) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (maint) Add release workflow [#13](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/13) ([beechtom](https://github.com/beechtom))
 
-* **Add PDK as a gem dependency**
+## [0.3.0](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/tree/0.3.0) - 2021-03-25
 
-  PDK is now a gem dependency for the module release pipeline
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/compare/0.2.0...0.3.0)
 
-## Release 0.1.2
+### Other
 
-### Bug fixes
+- (maint) Prep for 0.3.0 release [#12](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/12) ([beechtom](https://github.com/beechtom))
+- (PE-31356) Add individual creds fields [#11](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/11) ([barriserloth](https://github.com/barriserloth))
 
-* **Add missing dependencies to module metadata**
-  ([#6](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/6))
+## [0.2.0](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/tree/0.2.0) - 2021-01-22
 
-  The module metadata now includes `ruby_plugin_helper` and `ruby_task_helper`
-  as dependencies.
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/compare/0.1.3...0.2.0)
 
-## Release 0.1.1
+### Other
 
-### Bug fixes
+- (maint) Bump maximum Puppet version to include 7.x, prep for release [#10](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/10) ([lucywyman](https://github.com/lucywyman))
+- (maint) Add code of conduct and contributing docs [#9](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/pull/9) ([beechtom](https://github.com/beechtom))
 
-* **Set `resolve_reference` task to private**
+## [0.1.3](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/tree/0.1.3) - 2020-09-30
 
-  The `resolve_reference` task has been set to private so it no longer appears in UI lists.
-
-## Release 0.1.0
-
-This is the initial release.
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-gcloud_inventory/compare/06c0cc32f84c7ca90431ae00854d4e42a8018996...0.1.3)
