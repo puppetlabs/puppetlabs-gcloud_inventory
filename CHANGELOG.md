@@ -1,5 +1,13 @@
 # Changelog
 
+## Release 1.0.0
+
+### Changes
+
+* **Add support for Puppet 9 and drop Puppet 6/7** ([BOLT-193](https://perforce.atlassian.net/browse/BOLT-193))
+
+  Raises the `puppet` requirement bound to `>= 8.0.0 < 10.0.0` and updates the supported OS matrix to RHEL/CentOS/OracleLinux 9, Debian 12, Ubuntu 22.04, and Windows 2019. This is a breaking change for consumers still on Puppet 6/7.
+
 ## Release 0.3.1
 
 ### New features
